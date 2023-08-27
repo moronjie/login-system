@@ -38,6 +38,7 @@ router.post("/login", async (req, res) => {
             path: "/",
             httpOnly: true,
             sameSite: "lax",
+            expires: "1hr"
 
         })
         const {password, ...others} = user._doc
