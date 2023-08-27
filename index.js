@@ -9,12 +9,13 @@ const cookieParser = require("cookie-parser")
 const connect = require("./model/connect")
 const userRoute = require("./routers/user")
 
+//middlewares
 app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(morgan("common"))
 
-//routers middleware
+//routes
 app.use("/user", userRoute)
 
 connect(process.env.DB)
