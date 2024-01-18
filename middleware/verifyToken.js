@@ -9,7 +9,7 @@ const verifyToken = async (req, res, next) => {
         if(!decode) return res.status(401).json({"msg": "you are not authorized"})
 
         const user = await User.findById(decode.id)
-        !user && res.status().json({"msg": "user not authorized"})
+        !user && res.status(404).json({"msg": "user not found"})
         req.user = user
 
         next() 
