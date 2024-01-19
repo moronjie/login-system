@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
         const user = new User({...req.body, password: hashpassword});
 
         const newUser = await user.save()
-        res.status(200).json(newUser);
+        res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({"msg": error.message})
     }
@@ -34,13 +34,7 @@ router.post("/login", async (req, res) => {
 
         const accessToken = jwt.sign({id: user._id}, process.env.SECRETTOKENKEY, {expiresIn: "1hr"})
 
-        res.cookie("verificationToken", accessToken, {
-            path: "/",
-            httpOnly: true,
-            sameSite: "lax",
-            expires: "1hr"
-
-        })
+        res.cookie("verificationToken", accessToken, {httpOnly: true})
         const {password, ...others} = user._doc
 
         res.status(200).json({others, "accessToken": accessToken})
@@ -57,7 +51,7 @@ router.get("/", verifyToken, async (req, res) => {
 
         const {password, ...others} = newUser._doc
 
-        res.status(201).json(others)
+        res.status(200).json(others)
     } catch (error) {
         res.status(500).json({"msg": error.message})
     }

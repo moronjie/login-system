@@ -20,7 +20,7 @@ app.use("/user", userRoute)
 
 connect(process.env.DB)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 4000
 
 mongoose.connection.on("error", () => console.log("something went wrong "))
 
